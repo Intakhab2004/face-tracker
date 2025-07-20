@@ -8,6 +8,7 @@ import VideoGallery from "@/components/VideoGallery";
 export default function Home() {
   const canvasRef = useRef(null);
   const [videos, setVideos] = useState([]);
+  const [isCameraReady, setCameraReady] = useState(false);
 
   useEffect(() => {
     const storedVideos = JSON.parse(localStorage.getItem("videos") || "[]");
@@ -21,8 +22,8 @@ export default function Home() {
       </h1>
 
       <div className="bg-[linear-gradient(229deg,rgba(204,173,187,1)_0%,rgba(148,187,233,1)_100%)] p-4 md:p-6 rounded-xl shadow-lg w-full max-w-lg md:max-w-2xl">
-        <FaceTracker width={640} height={480} canvasRef={canvasRef} />
-        <VideoRecorder canvasRef={canvasRef} setVideos={setVideos} />
+        <FaceTracker width={640} height={480} canvasRef={canvasRef} setCameraReady={setCameraReady} />
+        <VideoRecorder canvasRef={canvasRef} setVideos={setVideos} isCameraReady={isCameraReady} />
       </div>
 
       <div className="bg-[linear-gradient(229deg,rgba(204,173,187,1)_0%,rgba(148,187,233,1)_100%)] mt-6 p-4 md:p-6 rounded-xl shadow-lg w-full max-w-lg md:max-w-4xl">

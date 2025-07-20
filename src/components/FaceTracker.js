@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { FilesetResolver, FaceLandmarker } from "@mediapipe/tasks-vision";
 import toast from "react-hot-toast";
 
-export default function FaceTracker({width = 640, height = 480, canvasRef}){
+export default function FaceTracker({width = 640, height = 480, canvasRef, setCameraReady}){
     const videoRef = useRef(null);
 
     useEffect(() => {
@@ -39,6 +39,7 @@ export default function FaceTracker({width = 640, height = 480, canvasRef}){
                     audio: true
                 });
                 videoRef.current.srcObject = stream;
+                setCameraReady(true);
 
                 videoRef.current.onloadeddata = () => {
                     videoRef.current.play();
@@ -48,6 +49,7 @@ export default function FaceTracker({width = 640, height = 480, canvasRef}){
             catch(error){
                 console.log("Something went wrong while accessing the camera: ", error);
                 toast.error("Camera access denied!!");
+                setCameraReady(false);
             }
         }
 

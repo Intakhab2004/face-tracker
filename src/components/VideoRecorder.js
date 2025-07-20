@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import toast from "react-hot-toast";
 
-export default function VideoRecorder({ canvasRef, setVideos }){
+export default function VideoRecorder({ canvasRef, setVideos, isCameraReady }){
     const mediaRecorderRef = useRef(null);
     const [isRecording, setIsRecording] = useState(false);
     const [recordedVideoUrl, setRecordedVideoUrl] = useState(null);
@@ -57,7 +57,11 @@ export default function VideoRecorder({ canvasRef, setVideos }){
         <div className="text-center mt-4">
             {
                 !isRecording ? (
-                    <button onClick={startRecording} className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow-md transition-all duration-200 w-full sm:w-auto">
+                    <button 
+                        onClick={startRecording}
+                        disabled={!isCameraReady} 
+                        className={`px-4 py-2 rounded-md mr-2 cursor-pointer ${isCameraReady ? "bg-green-500 text-white hover:bg-green-600" : "bg-gray-400 text-gray-200 cursor-not-allowed"}`}
+                    >
                         Start Recording
                     </button>
                 ) : (
